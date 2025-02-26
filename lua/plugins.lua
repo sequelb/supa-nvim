@@ -15,6 +15,19 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 
   --beyond Vhyrro's tutorial
+
+  --Neogit
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "sindrets/diffview.nvim", -- optional - Diff integration
+      -- Only one of these is needed.
+      "ibhagwan/fzf-lua",            -- optional
+    },
+    config = true
+  },
+
   {
     "catppuccin/nvim",
     config = function()
@@ -309,7 +322,6 @@ require("lazy").setup({
       require('lspconfig').clangd.setup({ capabilities = capabilities })
       require('lspconfig').html.setup({ capabilities = capabilities })
       require('lspconfig').cssls.setup({ capabilities = capabilities })
-      require('lspconfig').emmetls.setup({ capabilities = capabilities })
 
       --from https://www.andersevenrud.net/neovim.github.io/lsp/configurations/html/
       -- capabilities.textDocument.completion.completionItem.snippetSupport = true
