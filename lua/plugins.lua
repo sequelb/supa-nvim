@@ -20,10 +20,10 @@ require("lazy").setup({
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim", -- required
+      "nvim-lua/plenary.nvim",  -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
       -- Only one of these is needed.
-      "ibhagwan/fzf-lua",            -- optional
+      "ibhagwan/fzf-lua",       -- optional
     },
     config = true
   },
@@ -37,9 +37,17 @@ require("lazy").setup({
 
   {
     "brenoprata10/nvim-highlight-colors",
-    config = function()
-      require('nvim-highlight-colors').setup({})
-    end
+    opts = {
+      render = 'virtual',
+      ---Set virtual symbol position()
+      ---@usage 'inline'|'eol'|'eow'
+      ---inline mimics VS Code style
+      ---eol stands for `end of column` - Recommended to set `virtual_symbol_suffix = ''` when used.
+      ---eow stands for `end of word` - Recommended to set `virtual_symbol_prefix = ' ' and virtual_symbol_suffix = ''` when used.
+      virtual_symbol_position = 'eow',
+      virtual_symbol_prefix = ' ',
+      virtual_symbol_suffix = '',
+    },
   },
 
   -- space+b
@@ -220,118 +228,157 @@ require("lazy").setup({
   },
 
   --================NVIM-CMP=+=LUASNIP
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   dependencies = {
+  --     "hrsh7th/cmp-nvim-lsp",
+  --     "hrsh7th/cmp-nvim-lua",
+  --     "hrsh7th/cmp-buffer",
+  --     "hrsh7th/cmp-path",
+  --     "hrsh7th/cmp-cmdline",
+  --     "saadparwaiz1/cmp_luasnip",
+  --     "L3MON4D3/LuaSnip",
+  --   },
+  --
+  --   config = function()
+  --     local cmp = require("cmp")
+  --     local luasnip = require("luasnip")
+  --     vim.opt.completeopt = { "menu", "menuone", "noselect" }
+  --     cmp.setup({
+  --       snippet = {
+  --         expand = function(args)
+  --           luasnip.lsp_expand(args.body)
+  --         end,
+  --       },
+  --       mapping = cmp.mapping.preset.insert({
+  --         ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+  --         ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+  --         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+  --         ["<C-f>"] = cmp.mapping.scroll_docs(4),
+  --         ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+  --         ["<C-e>"] = cmp.mapping.abort(),        -- close completion window
+  --         ["<Tab>"] = cmp.mapping.confirm({ select = false }),
+  --         ["<CR>"] = cmp.mapping.confirm({ select = false }),
+  --         ['<C-g>'] = function()
+  --           if cmp.visible_docs() then
+  --             cmp.close_docs()
+  --           else
+  --             cmp.open_docs()
+  --           end
+  --         end,
+  --
+  --       }),
+  --       sources = cmp.config.sources({
+  --         { name = "nvim_lsp" },
+  --         -- { name = "nvim_lua" },
+  --         { name = "luasnip" },
+  --         { name = "buffer" },
+  --         { name = "path" },
+  --       }),
+  --
+  --       cmp.setup.cmdline(":", {
+  --         mapping = cmp.mapping.preset.cmdline(),
+  --         sources = cmp.config.sources({
+  --           { name = "path" },
+  --           { name = "cmdline" },
+  --         }),
+  --       }),
+  --       formatting = {
+  --         format = function(entry, vim_item)
+  --           local kind_icons = {
+  --             Text = "",
+  --             Method = "󰆧",
+  --             Function = "󰊕",
+  --             Constructor = "",
+  --             Field = "",
+  --             Variable = "󰂡",
+  --             Class = "󰠱",
+  --             Interface = "",
+  --             Module = "",
+  --             Property = "󰜢",
+  --             Unit = "",
+  --             Value = "󰎠",
+  --             Enum = "",
+  --             Keyword = "󰌋",
+  --             Snippet = "",
+  --             Color = "󰏘",
+  --             File = "󰈙",
+  --             Reference = "",
+  --             Folder = "󰉋",
+  --             EnumMember = "",
+  --             Constant = "󰏿",
+  --             Struct = "",
+  --             Event = "",
+  --             Operator = "󰆕",
+  --             TypeParameter = "󰅲",
+  --           }                                                                                -- From kind_icons array
+  --           vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
+  --           -- Source
+  --           vim_item.menu = ({
+  --             buffer = "[]",
+  --             nvim_lsp = "[󰘧]",
+  --             luasnip = "[]",
+  --             nvim_lua = "[Lua]",
+  --             latex_symbols = "[󰒠]",
+  --           })[entry.source.name]
+  --           return vim_item
+  --         end
+  --       },
+  --     })
+  --
+  --     local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  --     require('lspconfig').clangd.setup({ capabilities = capabilities })
+  --     require('lspconfig').html.setup({ capabilities = capabilities })
+  --     --idk
+  --     capabilities = vim.lsp.protocol.make_client_capabilities()
+  --     capabilities.textDocument.completion.completionItem.snippetSupport = true
+  --     require('lspconfig').cssls.setup({ capabilities = capabilities })
+  --
+  --     --from https://www.andersevenrud.net/neovim.github.io/lsp/configurations/html/
+  --     -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+  --     -- require'lspconfig'.html.setup {
+  --     --   capabilities = capabilities,
+  --     -- }
+  --   end,
+  -- },
+
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
-      "L3MON4D3/LuaSnip",
+    'saghen/blink.cmp',
+    -- optional: provides snippets for the snippet source
+    dependencies = 'rafamadriz/friendly-snippets',
+
+    -- use a release tag to download pre-built binaries
+    version = '*',
+
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)
+      -- C-space: Open menu or open docs if already open
+      -- C-e: Hide menu
+      -- C-k: Toggle signature help
+      keymap = {
+        preset = 'default',
+        ['<C-k>'] = {'show_documentation'},
+      },
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono'
+      },
+
+      -- Default list of enabled providers defined so that you can extend it
+      -- elsewhere in your config, without redefining it, due to `opts_extend`
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+      
+
+      signature = { enabled = true },
+
+      -- See the fuzzy documentation for more information
+      fuzzy = { implementation = "prefer_rust_with_warning" }
     },
-
-    config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
-      vim.opt.completeopt = { "menu", "menuone", "noselect" }
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-          ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-          ["<C-e>"] = cmp.mapping.abort(),        -- close completion window
-          ["<Tab>"] = cmp.mapping.confirm({ select = false }),
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
-          ['<C-g>'] = function()
-            if cmp.visible_docs() then
-              cmp.close_docs()
-            else
-              cmp.open_docs()
-            end
-          end,
-
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          -- { name = "nvim_lua" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
-        }),
-
-        cmp.setup.cmdline(":", {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = cmp.config.sources({
-            { name = "path" },
-            { name = "cmdline" },
-          }),
-        }),
-        formatting = {
-          format = function(entry, vim_item)
-            local kind_icons = {
-              Text = "",
-              Method = "󰆧",
-              Function = "󰊕",
-              Constructor = "",
-              Field = "",
-              Variable = "󰂡",
-              Class = "󰠱",
-              Interface = "",
-              Module = "",
-              Property = "󰜢",
-              Unit = "",
-              Value = "󰎠",
-              Enum = "",
-              Keyword = "󰌋",
-              Snippet = "",
-              Color = "󰏘",
-              File = "󰈙",
-              Reference = "",
-              Folder = "󰉋",
-              EnumMember = "",
-              Constant = "󰏿",
-              Struct = "",
-              Event = "",
-              Operator = "󰆕",
-              TypeParameter = "󰅲",
-            }                                                                                -- From kind_icons array
-            vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
-            -- Source
-            vim_item.menu = ({
-              buffer = "[]",
-              nvim_lsp = "[󰘧]",
-              luasnip = "[]",
-              nvim_lua = "[Lua]",
-              latex_symbols = "[󰒠]",
-            })[entry.source.name]
-            return vim_item
-          end
-        },
-      })
-
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      require('lspconfig').clangd.setup({ capabilities = capabilities })
-      require('lspconfig').html.setup({ capabilities = capabilities })
-      --idk
-      capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
-      require('lspconfig').cssls.setup({ capabilities = capabilities })
-
-      --from https://www.andersevenrud.net/neovim.github.io/lsp/configurations/html/
-      -- capabilities.textDocument.completion.completionItem.snippetSupport = true
-      -- require'lspconfig'.html.setup {
-      --   capabilities = capabilities,
-      -- }
-    end,
+    opts_extend = { "sources.default" }
   },
 
   {
@@ -393,7 +440,7 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "cpp" },
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "cpp", "css", "javascript", "html"},
 
         auto_install = false,
 
@@ -412,7 +459,6 @@ require("lazy").setup({
             node_decremental = "<leader>sd",  --selection decrement
           }
         },
-        --textobjects
         textobjects = {
           select = {
             enable = true,
@@ -435,18 +481,20 @@ require("lazy").setup({
       })
     end
   },
+
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
+
   {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
-      lspconfig.clangd.setup({}) --installed seperately
-      -- not in tutorial v
-      lspconfig.html.setup({})   -- idek what im doing atp
-      lspconfig.cssls.setup({})
-      -- not in tutorial ^
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
+      lspconfig.clangd.setup({ capabilities = capabilities })
+      lspconfig.html.setup({ capabilities = capabilities })
+      lspconfig.cssls.setup({ capabilities = capabilities })
+      lspconfig.lua_ls.setup({ capabilities = capabilities })
     end
   },
   {
