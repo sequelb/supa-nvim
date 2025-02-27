@@ -321,6 +321,9 @@ require("lazy").setup({
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       require('lspconfig').clangd.setup({ capabilities = capabilities })
       require('lspconfig').html.setup({ capabilities = capabilities })
+      --idk
+      capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
       require('lspconfig').cssls.setup({ capabilities = capabilities })
 
       --from https://www.andersevenrud.net/neovim.github.io/lsp/configurations/html/
