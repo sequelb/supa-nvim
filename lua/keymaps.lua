@@ -144,9 +144,9 @@ keymap("n", "<leader>=", "<cmd>lua vim.lsp.buf.format()<CR>", lspsaga_opts) -- s
 --Toggling inlay hints
 keymap("n",  "<leader>hh", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", def_opts)
 
---Opening lspsaga terminal 
---change to toggleterm!
+--Opening toggle terminal 
 -- keymap('n', '<leader>tt', '<cmd>:Lspsaga term_toggle<CR>')
 keymap('n', '<leader>tt', '<cmd>:ToggleTerm<CR>')
 
-
+--open Neogit
+keymap('n', '<leader>g', '<cmd>Neogit<CR>')
