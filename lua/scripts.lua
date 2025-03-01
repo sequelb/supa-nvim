@@ -13,11 +13,11 @@
 --https://www.reddit.com/r/neovim/comments/1c00cl0/comment/kytl2zv/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 -- Map arrow keys for wildmenu completion
 --=================================================================================================
-vim.api.nvim_set_keymap('c', '<C-j>', 'v:lua.get_wildmenu_key("<right>", "<Tab>")', { expr = true })
-vim.api.nvim_set_keymap('c', '<C-k>', 'v:lua.get_wildmenu_key("<left>", "<S-Tab>")', { expr = true })
-function _G.get_wildmenu_key(key_wildmenu, key_regular)
-  return vim.fn.wildmenumode() ~= 0 and key_wildmenu or key_regular
-end
+-- vim.api.nvim_set_keymap('c', '<C-j>', 'v:lua.get_wildmenu_key("<right>", "<Tab>")', { expr = true })
+-- vim.api.nvim_set_keymap('c', '<C-k>', 'v:lua.get_wildmenu_key("<left>", "<S-Tab>")', { expr = true })
+-- function _G.get_wildmenu_key(key_wildmenu, key_regular)
+--   return vim.fn.wildmenumode() ~= 0 and key_wildmenu or key_regular
+-- end
 --=================================================================================================
 
 -- compiling and running C code

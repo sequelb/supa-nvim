@@ -36,6 +36,10 @@ require("lazy").setup({
   },
 
   {
+
+  },
+
+  {
     "brenoprata10/nvim-highlight-colors",
     opts = {
       render = 'virtual',
@@ -359,7 +363,7 @@ require("lazy").setup({
       -- C-k: Toggle signature help
       keymap = {
         preset = 'default',
-        ['<C-k>'] = {'show_documentation'},
+        ['<C-k>'] = { 'show_documentation' },
       },
       appearance = {
         use_nvim_cmp_as_default = true,
@@ -371,7 +375,14 @@ require("lazy").setup({
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
       },
-      
+
+      cmdline = {
+        completion = {
+          menu = {
+            auto_show = true
+          }
+        }
+      },
 
       signature = { enabled = true },
 
@@ -440,7 +451,7 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "cpp", "css", "javascript", "html"},
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "cpp", "css", "javascript", "html" },
 
         auto_install = false,
 
@@ -497,6 +508,7 @@ require("lazy").setup({
       lspconfig.lua_ls.setup({ capabilities = capabilities })
     end
   },
+
   {
     "williamboman/mason.nvim",
     config = function()
