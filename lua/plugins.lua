@@ -14,8 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
-  --beyond Vhyrro's tutorial
-
   --Neogit
   {
     "NeogitOrg/neogit",
@@ -36,7 +34,10 @@ require("lazy").setup({
   },
 
   {
-
+    "folke/tokyonight.nvim",
+    config = function()
+      vim.cmd.colorscheme("tokyonight-storm")
+    end
   },
 
   {
@@ -364,6 +365,8 @@ require("lazy").setup({
       keymap = {
         preset = 'default',
         ['<C-k>'] = { 'show_documentation' },
+        ['<C-CR>'] = { 'accept' },
+        ['<C-Tab>'] = { 'accept' },
       },
       appearance = {
         use_nvim_cmp_as_default = true,
@@ -444,7 +447,7 @@ require("lazy").setup({
   {
     "rebelot/kanagawa.nvim",
     config = function()
-      vim.cmd.colorscheme("kanagawa-wave")
+      -- vim.cmd.colorscheme("kanagawa-wave")
     end
   },
   {

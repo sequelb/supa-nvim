@@ -23,7 +23,7 @@ keymap("n", "Y", "y$")
 keymap("n", "x", '"_x', term_opts) --x and X don't copy to clipboard
 keymap("n", "X", '"_X', term_opts)
 
-keymap("n", "<leader>nh", "<cmd>nohl<CR>", term_opts)
+keymap("n", "<leader>n", "<cmd>nohl<CR>", term_opts)
 keymap("n", "U", "<C-r>", term_opts)
 keymap("n", "<leader>wl", "<C-w>v", defopts) -- vertical split|window l(left)
 keymap("n", "<leader>wj", "<C-w>s", defopts) -- horizontal split|window j(down)
